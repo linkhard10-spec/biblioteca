@@ -1,0 +1,18 @@
+{% extends 'biblioteca/base.html' %}
+
+{% block content %}
+<h2>Lista de Livros</h2>
+{% if livros %}
+    {% for livro in livros %}
+        <div class="livro {% if livro.lido %}lido{% else %}nao-lido{% endif %}">
+            <strong>{{ livro.titulo }}</strong> - {{ livro.autor }}
+            {% if not livro.lido %}
+                <a href="{% url 'marcar_lido' livro.id %}" class="button">Marcar como Lido</a>
+            {% endif %}
+            <a href="{% url 'remover_livro' livro.id %}" class="button delete">Remover</a>
+        </div>
+    {% endfor %}
+{% else %}
+    <p>Nenhum livro cadastrado.</p>
+{% endif %}
+{% endblock %}
